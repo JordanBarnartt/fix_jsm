@@ -54,6 +54,7 @@ def get_watiam_associated_with_email(email):
 def replace_account_id(key, old_account_id, new_account_id):
     response = httpx.put(
         JIRA_URL + "/issue/" + key,
+        params={"notifyUsers": False},
         json={
             "update": {
                 "customfield_10026": [
