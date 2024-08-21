@@ -70,7 +70,8 @@ def replace_account_id(key, old_account_id, new_account_id):
         },
         auth=(JIRA_USERNAME, JIRA_PASSWORD),
     )
-    return response.json()
+    response.raise_for_status()
+    print("Replaced", old_account_id, "with", new_account_id, "in", key)
 
 
 with open("jsm.csv", "r") as file:
