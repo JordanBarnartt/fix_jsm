@@ -50,7 +50,7 @@ def get_watiam_associated_with_email(email):
             "Authorization": f"Token {ISS_API_KEY}",
             "Content-Type": "application/json",
         },
-        verifty=False,
+        verify=False,
     )
     return response.json()
 
