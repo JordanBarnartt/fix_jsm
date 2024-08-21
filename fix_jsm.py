@@ -33,13 +33,14 @@ def get_account_id_from_email(email):
 
 def get_issues_associated_with_account_id(account_id):
     params = {
-        "jql": '"request participants"="{account_id}"',
+        "jql": f'"request participants"="{account_id}"',
         "maxResults": 100,
     }
     response = httpx.get(
-        JIRA_URL, params=params, auth=(JIRA_USERNAME, JIRA_PASSWORD)
-    ).json()
-    return response["issues"]
+        JIRA_URL + "/search", params=params, auth=(JIRA_USERNAME, JIRA_PASSWORD)
+    )
+    response_json = response.json()
+    return response_json["issues"]
 
 
 def get_watiam_associated_with_email(email):
