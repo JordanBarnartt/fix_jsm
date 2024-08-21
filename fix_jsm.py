@@ -45,7 +45,7 @@ def get_issues_associated_with_account_id(account_id):
 def get_watiam_associated_with_email(email):
     response = httpx.get(
         ISS_API_URL,
-        params={"email": email},
+        params={"id": email},
         headers={
             "Authorization": f"Token {ISS_API_KEY}",
             "Content-Type": "application/json",
