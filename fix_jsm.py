@@ -46,7 +46,11 @@ def get_watiam_associated_with_email(email):
     response = httpx.get(
         ISS_API_URL,
         params={"email": email},
-        headers={"Authorization": f"Token {ISS_API_KEY}", "Content-Type": "application/json"},
+        headers={
+            "Authorization": f"Token {ISS_API_KEY}",
+            "Content-Type": "application/json",
+        },
+        verifty=False,
     )
     return response.json()
 
