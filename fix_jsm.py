@@ -52,7 +52,7 @@ def get_watiam_associated_with_email(email):
         },
         verify=False,
     )
-    return response.json()
+    return response.text
 
 
 def replace_account_id(key, old_account_id, new_account_id):
