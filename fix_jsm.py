@@ -29,6 +29,7 @@ def get_account_id_from_email(email):
     for user in response:
         if user["accountType"] == "atlassian":
             return user["accountId"]
+    
 
 
 def get_issues_associated_with_account_id(account_id):
@@ -57,6 +58,8 @@ def get_watiam_associated_with_email(email):
 
 
 def replace_account_id(key, old_account_id, new_account_id):
+    if new_account_id is None:
+        print(f"User does not have an Atlassian account, taking no action on {key}")
     response = httpx.put(
         JIRA_URL + "/issue/" + key,
         params={"notifyUsers": "false"},
