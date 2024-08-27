@@ -60,6 +60,7 @@ def get_watiam_associated_with_email(email):
 def replace_account_id(key, old_account_id, new_account_id):
     if new_account_id is None:
         print(f"User does not have an Atlassian account, taking no action on {key}")
+        return
     response = httpx.put(
         JIRA_URL + "/issue/" + key,
         params={"notifyUsers": "false"},
