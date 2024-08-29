@@ -98,14 +98,16 @@ with open("jsm.csv", "r") as file:
         if email is None:
             continue
         watiam = get_watiam_associated_with_email(email)
+        if watiam is None:
+            continue
         issues = get_issues_associated_with_account_id(old_account_id)
+        if not issues:
+            print(f"No issues found for {email}")
+            continue
         new_account_id = get_account_id_from_email(watiam)
         if new_account_id is None:
             continue
 
-        if not issues:
-            print(f"No issues found for {email}")
-            continue
         for issue in issues:
             key = issue["key"]
             replace_account_id(key, old_account_id, new_account_id)
