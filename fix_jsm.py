@@ -103,6 +103,9 @@ with open("jsm.csv", "r") as file:
         if new_account_id is None:
             continue
 
+        if not issues:
+            print(f"No issues found for {email}")
+            continue
         for issue in issues:
             key = issue["key"]
             replace_account_id(key, old_account_id, new_account_id)
