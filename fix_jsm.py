@@ -32,6 +32,9 @@ def get_account_id_from_email(email):
         params={"query": email},
         auth=(JIRA_USERNAME, JIRA_PASSWORD),
     ).json()
+    if not response:
+        print(f"Could not find an Atlassian account associated with {email}")
+        return None
     for user in response:
         if user["accountType"] == "atlassian":
             return user["accountId"]
