@@ -21,6 +21,8 @@ def get_email_from_account_id(account_id):
 
 
 def get_account_id_from_email(email):
+    if email is None:
+        return None
     response = httpx.get(
         JIRA_URL + "/user/search",
         params={"query": email},
@@ -54,7 +56,10 @@ def get_watiam_associated_with_email(email):
         },
         verify=False,
     )
-    return response.text
+    watiam = response.text
+    if not watiam:
+        print(f"Could not find a WATIAM associated with {email}")
+    return watiam
 
 
 def replace_account_id(key, old_account_id, new_account_id):
@@ -86,6 +91,8 @@ with open("jsm.csv", "r") as file:
         watiam = get_watiam_associated_with_email(email)
         issues = get_issues_associated_with_account_id(old_account_id)
         new_account_id = get_account_id_from_email(watiam)
+        if new_account_id is None:
+            continue
 
         for issue in issues:
             key = issue["key"]
