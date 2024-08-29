@@ -17,7 +17,11 @@ def get_email_from_account_id(account_id):
         params={"accountId": account_id},
         auth=(JIRA_USERNAME, JIRA_PASSWORD),
     )
-    return response.json()["emailAddress"]
+    try:
+        return response.json()["emailAddress"]
+    except KeyError:
+        print(f"Could not find an email associated with {account_id}")
+        return None
 
 
 def get_account_id_from_email(email):
@@ -88,6 +92,8 @@ with open("jsm.csv", "r") as file:
     for row in reader:
         old_account_id = row[0]
         email = get_email_from_account_id(old_account_id)
+        if email is None:
+            continue
         watiam = get_watiam_associated_with_email(email)
         issues = get_issues_associated_with_account_id(old_account_id)
         new_account_id = get_account_id_from_email(watiam)
