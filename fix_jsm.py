@@ -65,7 +65,7 @@ def get_watiam_associated_with_email(email):
     )
     watiam = response.text
     if not watiam:
-        print(f"Could not find a WATIAM associated with {email}")
+        print(f"Could not find a WatIAM associated with {email}")
     return watiam
 
 
@@ -95,10 +95,10 @@ with open("jsm.csv", "r") as file:
     for row in reader:
         old_account_id = row[0]
         email = get_email_from_account_id(old_account_id)
-        if email is None:
+        if not email:
             continue
         watiam = get_watiam_associated_with_email(email)
-        if watiam is None:
+        if not watiam:
             continue
         issues = get_issues_associated_with_account_id(old_account_id)
         if not issues:
