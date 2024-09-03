@@ -46,7 +46,7 @@ def get_issues_associated_with_account_id(account_id):
         "maxResults": 100,
     }
     response = httpx.get(
-        JIRA_URL + "/search", params=params, auth=(JIRA_USERNAME, JIRA_PASSWORD)
+        JIRA_URL + "/search", params=params, auth=(JIRA_USERNAME, JIRA_PASSWORD), timeout=30
     )
     response_json = response.json()
     return response_json["issues"]
