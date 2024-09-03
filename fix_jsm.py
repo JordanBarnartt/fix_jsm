@@ -38,7 +38,6 @@ def get_account_id_from_email(email):
     for user in response:
         if user["accountType"] == "atlassian":
             return user["accountId"]
-    
 
 
 def get_issues_associated_with_account_id(account_id):
@@ -87,7 +86,6 @@ def replace_account_id(key, old_account_id, new_account_id):
         auth=(JIRA_USERNAME, JIRA_PASSWORD),
     )
     response.raise_for_status()
-    print("Replaced", old_account_id, "with", new_account_id, "in", key)
 
 
 with open("jsm.csv", "r") as file:
@@ -111,3 +109,6 @@ with open("jsm.csv", "r") as file:
         for issue in issues:
             key = issue["key"]
             replace_account_id(key, old_account_id, new_account_id)
+            print(
+                f"Replaced {email} ({old_account_id}) with {watiam} ({new_account_id}) in {key}"
+            )
