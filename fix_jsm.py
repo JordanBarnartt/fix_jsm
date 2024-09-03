@@ -62,6 +62,11 @@ def get_watiam_associated_with_email(email):
         },
         verify=False,
     )
+    try:
+        response.raise_for_status()
+    except httpx.HTTPStatusError:
+        print(f"Could not find a WatIAM associated with {email}")
+        return
     watiam = response.text
     if not watiam:
         print(f"Could not find a WatIAM associated with {email}")
